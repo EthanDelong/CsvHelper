@@ -18,9 +18,15 @@ s#p0doc
 s#q0test
 s#w0canvas
 !19;a
-a%\011doc%s	b	c1	d0!48;g
-%\011src%sProgram.java
+a%\011doc%s	b	c1	d0!122;g
+%\011src%sContact.java
+%\011src%sMappable.java
+%\011src%sCsvMapper.java
 %\011src%sCsvHelper.java
-!48;f
-%\011src%sProgram.java
+%\011src%sCsvReader.java
+!122;f
+%\011src%sContact.java
+%\011src%sMappable.java
+%\011src%sCsvMapper.java
 %\011src%sCsvHelper.java
+%\011src%sCsvReader.java
