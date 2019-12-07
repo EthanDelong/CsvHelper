@@ -1,3 +1,15 @@
+//*******************************************************//
+//  Ethan DeLong & Joseph Boehme                         //
+//  CIS 112                                              //
+//  Professor Wertz                                      //
+//  6 December 2019                                      //
+//                                                       //
+//  Mappable.java                                        //
+//                                                       //
+//  Abstract class used to define Mappable objects.      //
+//                                                       //
+//*******************************************************//
+
 /**
  * Abstract class for mappable objects to inherit.
  */
