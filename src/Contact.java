@@ -83,7 +83,7 @@ public class Contact extends Mappable
     private Date birthDate;
 
     /**
-     * Instantiates a new Contact with null values.
+     * Instantiates a new Contact with default values.
      */
     public Contact()
     {
