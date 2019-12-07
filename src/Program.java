@@ -10,6 +10,9 @@
 //                                                       //
 //*******************************************************//
 
+import java.security.KeyStore;
+import java.util.*;
+
 /**
  * Program is the main driver for our application. It contains the
  * entry point for our code and handles parsing all user input and 
@@ -73,6 +76,8 @@ public class Program
     */
    public static void main(String[] args)
    {
-      
+      CsvHelper csvHelper = new CsvHelper();
+      Map<Integer,Contact> contacts = csvHelper.csvMapper();
+      System.out.println(contacts.toString());
    }
 }
