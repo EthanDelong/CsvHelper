@@ -102,8 +102,8 @@ public class Contact extends Mappable
 
     /**
      * Instantiates a new Contact from the given input values.
-	 *
-	 * @param input The input String array of values to map.
+     *
+     * @param input The input String array of values to map.
      */
     public Contact(String[] input)
     {
@@ -354,10 +354,10 @@ public class Contact extends Mappable
 
     /**
      * Maps the values of the given input to the Contact.
-	 *
+     *
      * @param  input    A String array of columns to map to the Contact.
-	 *
-	 * @throws IllegalArgumentException	If the input was not in the correct format.
+     *
+     * @throws IllegalArgumentException    If the input was not in the correct format.
      */
     public void mapValues(String[] input) throws IllegalArgumentException
     {
