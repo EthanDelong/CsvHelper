@@ -31,19 +31,13 @@ public class SelectionSorter<TMappable extends Mappable> extends MappableSorter<
         for(int current = 0; current < sortedKeys.length; current++){
 
             int indexOfMin = current;
-            for (int i = current + 1; i < sortedKeys.length - 1; i++){
+            for (int i = current + 1; i < sortedKeys.length; i++){
                 int leftIndex = sortedKeys[i];
                 int rightIndex = sortedKeys[indexOfMin];
                 T left = mappedValues.get(leftIndex);
                 T right = mappedValues.get(rightIndex);
-                try{
-                    if (asc ? left.compareTo(right) > 0 : left.compareTo(right) < 0)
-                        indexOfMin = i;
-                }
-                catch (Exception e){
-                    System.out.println(e);
-                }
-
+                if (asc ? left.compareTo(right) > 0 : left.compareTo(right) < 0)
+                    indexOfMin = i;
             }
             int valueIndexOfMin = sortedKeys[indexOfMin];
             int valueCurrent = sortedKeys[current];
