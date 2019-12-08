@@ -113,6 +113,10 @@ public class CsvHelper
             BubbleSorter<Contact> bubbleSorter = new BubbleSorter<Contact>(contacts);
             bubbleSorter.sort(1, false);
             
+            MergeSorter<Contact> mergeSorter = new MergeSorter<Contact>(contacts);
+            mergeSorter.sort(1, false);
+            
+            
             // Sort the contacts by name using merge sort algorithms
         }
         catch(Exception e)
