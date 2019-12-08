@@ -18,19 +18,21 @@ s#p0doc
 s#q0test
 s#w0canvas
 !19;a
-a%\011doc%s	b	c1	d0!177;g
+a%\011doc%s	b	c1	d0!207;g
 %\011src%sContact.java
 %\011src%sMappable.java
 %\011src%sCsvMapper.java
 %\011src%sCsvHelper.java
+%\011src%sMergeSorter.java
 %\011src%sMappableSorter.java
-%\011src%sMergeSort.java
+%\011src%sBubbleSorter.java
 %\011src%sCsvReader.java
-!177;f
+!207;f
 %\011src%sContact.java
 %\011src%sMappable.java
 %\011src%sCsvMapper.java
 %\011src%sCsvHelper.java
+%\011src%sMergeSorter.java
 %\011src%sMappableSorter.java
-%\011src%sMergeSort.java
+%\011src%sBubbleSorter.java
 %\011src%sCsvReader.java
