@@ -64,7 +64,7 @@ public class MappableSorterTest
         sortAndValidate(mergeSorter);
     }
     
-     @Test public void selectionSorterTest()
+    @Test public void selectionSorterTest()
     {
         SelectionSorter<Contact> selectionSorter = new SelectionSorter<Contact>(contacts);
         sortAndValidate(selectionSorter);
@@ -103,17 +103,20 @@ public class MappableSorterTest
     {
         try
         {
+            int count = 0;
+            
             T previous = null;
             Map<Integer, Mappable> results = sorter.getResults();
             for(Mappable item : results.values())
             {
+                count++;
                 T current = item.getColumnAsType(index);
                 if(previous != null)
                 {
                     if(asc ? current.compareTo(previous) < 0 : current.compareTo(previous) > 0)
                     {
                         String className = sorter.getClass().getName();
-                        Assert.fail("Failed during " + className + " validation of sort implementation.");
+                        Assert.fail("Failed during " + className + " sort " + (asc ? "asc" : "desc") +" on row " + count + ", index " + index + ", " + previous + (asc ? " <= " : " >= ") + current);
                     }
                 }
                 previous = current;

@@ -1,10 +1,25 @@
+//*******************************************************//
+//  Ethan DeLong & Joseph Boehme                         //
+//  CIS 112                                              //
+//  Professor Wertz                                      //
+//  6 December 2019                                      //
+//                                                       //
+//  SelectionSorter.java                                 //
+//                                                       //
+//  Selection Sort implementation of the MappableSorter. //
+//                                                       //
+//*******************************************************//
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Extends the MappableSorter class with the Selection Sort algorithm.
+ */
 public class SelectionSorter<TMappable extends Mappable> extends MappableSorter<TMappable>
 {
     /**
-     * Creates a new BubbleSorter from the input Map.
+     * Creates a new SelectionSorter from the input Map.
      */
     public SelectionSorter(Map<Integer, TMappable> input)
     {
@@ -12,7 +27,7 @@ public class SelectionSorter<TMappable extends Mappable> extends MappableSorter<
     }
 
     /**
-     * Sorts the Mappable object by the index column with the expected type T using BubbleSort.
+     * Sorts the Mappable object by the index column with the expected type T using SelectionSort.
      *
      * @param   input   The Map of ids and Mappable objects.
      * @param   index   The index of the column to sort.
@@ -44,8 +59,6 @@ public class SelectionSorter<TMappable extends Mappable> extends MappableSorter<
             sortedKeys[current] = valueIndexOfMin;
             sortedKeys[indexOfMin] = valueCurrent;
         }
-
-        // Bubble sort is simple, but not efficient. It costs O(N^2) to process.
 
 
         // Create our result map from the sorted keys.
