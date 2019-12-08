@@ -10,9 +10,13 @@
 //                                                       //
 //*******************************************************//
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.IllegalAccessException;
+import java.lang.InstantiationException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +53,8 @@ public class CsvMapper<T extends Mappable>
      *
      * @throws  IOException If there is an issue processing the file stream.
      */
-    public Map<Integer, T> mapCsvFile(String fileName, boolean headers) throws IOException
+    public Map<Integer, T> mapCsvFile(String fileName, boolean headers)
+        throws FileNotFoundException, IllegalAccessException, InstantiationException, InvocationTargetException, IOException
     {
         Map<Integer, T> csvMap = new HashMap<>();
         CsvReader csvReader = null;
@@ -66,7 +71,8 @@ public class CsvMapper<T extends Mappable>
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            // Re-throw, we're only catching to make sure we're disposing the stream.
+            throw e;
         }
         finally
         {
@@ -74,7 +80,7 @@ public class CsvMapper<T extends Mappable>
             {
                 csvReader.close();
             }
-            return csvMap;
         }
+        return csvMap;
     }
 }

@@ -11,6 +11,7 @@
 //*******************************************************//
 
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * CsvHelper is the main driver for our application. It contains the
@@ -55,8 +56,8 @@ import java.util.Map;
  * </ul>
  * <p>
  * Example Usage<p>
- * <code><strong>Please enter a csv file path, followed by the return key:</strong> C:\Path\To\File.csv</code><p>
- * <code>Found 3 column(s).</code><p>
+ * <code><strong>Please enter the contact file path, followed by the return key:</strong> C:\Path\To\File.csv</code><p>
+ * <code>Mapped 1000 record(s).</code><p>
  * <code>You may now enter from one of the following commands</code><p>
  * <code>sort n [asc|desc]</code><p>
  * <code>Found 3 column(s), please enter from the following commands:</code><p>
@@ -77,10 +78,39 @@ public class CsvHelper
     {
         try
         {
+            // First, let's get a valid input file and create the map
+            Scanner scanner = new Scanner(System.in);
             Class<Contact> classType = (Class<Contact>)(new Contact()).getClass();
             CsvMapper<Contact> csvMapper = new CsvMapper<Contact>(classType);
-            Map<Integer, Contact> contacts = csvMapper.mapCsvFile("..\\src\\testdata\\MOCK_DATA.csv", true);
-            System.out.println(contacts.toString());
+            Map<Integer, Contact> contacts = null;
+            while(contacts == null)
+            {
+                String inputFile = "";
+                try
+                {
+                    System.out.print("Please enter the contact file path, followed by the return key: ");
+                    inputFile = scanner.nextLine();
+                    contacts = csvMapper.mapCsvFile(inputFile, true);
+                }
+                catch(Exception e)
+                {
+                    System.out.println("Could not read input file: '" + inputFile + "'");
+                    contacts = null;
+                }
+            }
+            System.out.println("Mapped " + contacts.size() + " record(s).");
+        
+            // Map the input csv
+            
+            // Print out the input in the order it came
+            /*
+            for(Contact contact : contacts.values())
+            {
+                System.out.println(contact.getId() + ": " + contact.toString());
+            }
+            */
+            
+            // Sort the contacts by name using merge sort algorithms
         }
         catch(Exception e)
         {
