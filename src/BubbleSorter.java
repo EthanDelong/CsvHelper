@@ -55,7 +55,7 @@ public class BubbleSorter<TMappable extends Mappable> extends MappableSorter<TMa
                 T right = mappedValues.get(rightIndex);
                 
                 // This way we can sort any Comparable object
-                if(left.compareTo(right) > 0)
+                if(asc ? left.compareTo(right) > 0 : left.compareTo(right) < 0)
                 {
                     // Swap LR
                     sortedKeys[j] = leftIndex;

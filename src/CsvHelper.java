@@ -111,10 +111,10 @@ public class CsvHelper
             */
             
             BubbleSorter<Contact> bubbleSorter = new BubbleSorter<Contact>(contacts);
-            bubbleSorter.sort(9, true);
+            bubbleSorter.sort(1, false);
             for(Contact contact : bubbleSorter.getResults().values())
             {
-                System.out.println(contact.getZipCode());
+                System.out.println(contact.getFirstName());
             }
             
             // Sort the contacts by name using merge sort algorithms
