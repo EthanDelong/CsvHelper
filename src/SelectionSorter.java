@@ -43,23 +43,28 @@ public class SelectionSorter<TMappable extends Mappable> extends MappableSorter<
         // Convert mapped values to array of keys for sorting
         Integer[] sortedKeys = mappedValues.keySet().toArray(new Integer[mappedValues.size()]);
 
-        for(int current = 0; current < sortedKeys.length; current++){
-
-            int indexOfMin = current;
-            for (int i = current + 1; i < sortedKeys.length; i++){
+        for(int current = 0; current < sortedKeys.length - 1; current++)
+        {
+            int indexOfMinOrMax = current;
+            for (int i = current + 1; i < sortedKeys.length; i++)
+            {
                 int leftIndex = sortedKeys[i];
-                int rightIndex = sortedKeys[indexOfMin];
                 T left = mappedValues.get(leftIndex);
+                
+                int rightIndex = sortedKeys[indexOfMinOrMax];
                 T right = mappedValues.get(rightIndex);
-                if (asc ? left.compareTo(right) > 0 : left.compareTo(right) < 0)
-                    indexOfMin = i;
+                
+                if (asc ? left.compareTo(right) < 0 : left.compareTo(right) > 0)
+                {
+                    indexOfMinOrMax = i;
+                }
             }
-            int valueIndexOfMin = sortedKeys[indexOfMin];
-            int valueCurrent = sortedKeys[current];
-            sortedKeys[current] = valueIndexOfMin;
-            sortedKeys[indexOfMin] = valueCurrent;
+            
+            // Swap with min
+            int temp = sortedKeys[current];
+            sortedKeys[current] = sortedKeys[indexOfMinOrMax];
+            sortedKeys[indexOfMinOrMax] = temp;
         }
-
 
         // Create our result map from the sorted keys.
         LinkedHashMap<Integer, TMappable> result = new LinkedHashMap<Integer, TMappable>(input.size());
