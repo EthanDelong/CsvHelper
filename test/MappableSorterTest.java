@@ -116,7 +116,7 @@ public class MappableSorterTest
                     if(asc ? current.compareTo(previous) < 0 : current.compareTo(previous) > 0)
                     {
                         String className = sorter.getClass().getName();
-                        Assert.fail("Failed during " + className + " sort " + (asc ? "asc" : "desc") +" on row " + count + ", index " + index + ", " + previous + (asc ? " <= " : " >= ") + current);
+                        Assert.fail("Failed during " + className + " sort " + (asc ? "asc" : "desc") +" on row " + count + ", index " + index + ", issue: " + previous + " is not" + (asc ? " <= " : " >= ") + current);
                     }
                 }
                 previous = current;

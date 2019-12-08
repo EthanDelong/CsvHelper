@@ -43,26 +43,20 @@ public class InsertionSorter<TMappable extends Mappable> extends MappableSorter<
         // Convert mapped values to array of keys for sorting
         Integer[] sortedKeys = mappedValues.keySet().toArray(new Integer[mappedValues.size()]);
 
-        for (int count = 1; count < sortedKeys.length; count++){
-            boolean finished = false;
-            int current = count;
-            boolean moreToSearch = true;
-            while (moreToSearch && !finished)
+        for (int count = 1; count < sortedKeys.length; count++)
+        {
+            int currentIndex = sortedKeys[count];
+            T right = mappedValues.get(currentIndex);
+            
+            int current = count - 1;
+            while ((current >= 0) 
+                && (asc ? mappedValues.get(sortedKeys[current]).compareTo(right) > 0 
+                        : mappedValues.get(sortedKeys[current]).compareTo(right) < 0))
             {
-                int currentIndex = sortedKeys[current];
-                int currentSubIndex = sortedKeys[current - 1];
-                T left = mappedValues.get(currentIndex);
-                T right = mappedValues.get(currentSubIndex);
-                if (asc ? left.compareTo(right) > 0 : left.compareTo(right) < 0)
-                {
-                    sortedKeys[current] = currentSubIndex;
-                    sortedKeys[current-1] = currentIndex;
-                    current--;
-                    moreToSearch = (current != 0);
-                }
-                else
-                    finished = true;
+                sortedKeys[current + 1] = sortedKeys[current];
+                current--;
             }
+            sortedKeys[current + 1] = currentIndex;
         }
 
         // Create our result map from the sorted keys.
