@@ -61,6 +61,7 @@ public abstract class MappableSorter<TMappable extends Mappable>
         Performance.startTimer(timerKey);
         current = sort(current, index, asc);
         Performance.stopTimer(timerKey);
+        System.out.println("Sorted " + current.size() + " row(s) using " + sortClass + ", duration: " + Performance.formatDurationString(timerKey));
     }
     
     /**
