@@ -76,10 +76,7 @@ public abstract class MappableSorter<TMappable extends Mappable>
      * @param   index   The index of the column to sort.
      * @param   asc     True to sort in ascending order, false to sort in descending order.
      *
-     * @return  A new sorted Map.
-     *
-     * @throws ClassCastException           If we failed to cast the column to type T.
-     * @throws IndexOutOfBoundsException    If the specified index is not defined for this object.
+     * @return  A new Map, sorted by the specified index column.
      */
     protected abstract <T extends Comparable<T>> LinkedHashMap<Integer, TMappable> sort(Map<Integer, TMappable> input, int index, boolean asc);
     
