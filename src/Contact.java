@@ -12,6 +12,8 @@
 //*******************************************************//
 
 import java.lang.IllegalArgumentException;
+import java.lang.IndexOutOfBoundsException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
@@ -53,11 +55,6 @@ public class Contact extends Mappable
     private String gender;
 
     /**
-     * The IP Address of the Contact.
-     */
-    private String ipAddress;
-
-    /**
      * The phone number of the Contact.
      */
     private String phoneNumber;
@@ -78,6 +75,11 @@ public class Contact extends Mappable
     private String state;
 
     /**
+     * The zip code the Contact lives in.
+     */
+    private int zipCode;
+
+    /**
      * The Contact's birth date. Input is in MM/dd/yyyy format.
      */
     private Date birthDate;
@@ -92,11 +94,11 @@ public class Contact extends Mappable
         lastName = null;
         emailAddress = null;
         gender = null;
-        ipAddress = null;
         phoneNumber = null;
         streetName = null;
         city = null;
         state = null;
+        zipCode = 0;
         birthDate = null;
     }
 
@@ -211,26 +213,6 @@ public class Contact extends Mappable
     }
 
     /**
-     * Gets the IpAddress.
-     *
-     * @return Returns the IpAddress of the Contact.
-     */
-    public String getIpAddress()
-    {
-        return ipAddress;
-    }
-
-    /**
-     * Sets the IpAddress.
-     *
-     * @param ipAddress The IpAddress of the Contact.
-     */
-    public void setIpAddress(String ipAddress)
-    {
-        this.ipAddress = ipAddress;
-    }
-
-    /**
      * Gets the PhoneNumber.
      *
      * @return Returns the PhoneNumber of the Contact.
@@ -309,11 +291,31 @@ public class Contact extends Mappable
     {
         this.state = state;
     }
+    
+    /**
+     * Gets the Id.
+     *
+     * @return Returns the Id of the Contact.
+     */
+    public int getZipCode()
+    {
+        return zipCode;
+    }
+     
+    /**
+     * Sets the Zip Code.
+     *
+     * @param zipCode The Zip Code of the Contact.
+     */
+    public void setZipCode(int zipCode)
+    {
+        this.zipCode = zipCode;
+    }
 
     /**
-     * Gets the BirthDate.
+     * Gets the Birth Date.
      *
-     * @return Returns the BirthDate of the Contact.
+     * @return Returns the Birth Date of the Contact.
      */
     public Date getBirthDate()
     {
@@ -321,13 +323,13 @@ public class Contact extends Mappable
     }
 
     /**
-     * Sets the BirthDate.
+     * Sets the Birth Date.
      *
-     * @param birthDate The BirthDate of the Contact.
+     * @param birthDate The Birth Date of the Contact, in MM/dd/yyyy format.
      */
-    public void setBirthDate(Date birthDate)
+    public void setBirthDate(String birthDate) throws ParseException
     {
-        this.birthDate = birthDate;
+        this.birthDate = new SimpleDateFormat("MM/dd/yyyy").parse(birthDate);
     }
 
     /**
@@ -343,41 +345,68 @@ public class Contact extends Mappable
                 ", lastName='" + lastName + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", gender='" + gender + '\'' +
-                ", ipAddress='" + ipAddress + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", streetName='" + streetName + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
                 ", birthDate=" + birthDate +
                 '}';
     }
-
+    
     /**
-     * Maps the values of the given input to the Contact.
+     * Gets the column of this Contact by index.
      *
-     * @param  input    A String array of columns to map to the Contact.
+     * @param  index    The index of the column to get.
      *
-     * @throws IllegalArgumentException    If the input was not in the correct format.
+     * @return The value of the column at the given index.
+     *
+     * @throws IndexOutOfBoundsException    If the specified index is not defined for this object.
      */
-    public void mapValues(String[] input) throws IllegalArgumentException
+    public Object getColumn(int index) throws IndexOutOfBoundsException
     {
-        try
+        switch(index)
         {
-            setId(Integer.parseInt(input[0]));
-            setFirstName(input[1]);
-            setLastName(input[2]);
-            setEmailAddress(input[3]);
-            setGender(input[4]);
-            setIpAddress(input[5]);
-            setPhoneNumber(input[6]);
-            setStreetName(input[7]);
-            setCity(input[8]);
-            setState(input[9]);
-            setBirthDate(new SimpleDateFormat("MM/dd/yyyy").parse(input[10]));
+            case 0: return getId();
+            case 1: return getFirstName();
+            case 2: return getLastName();
+            case 3: return getEmailAddress();
+            case 4: return getGender();
+            case 5: return getPhoneNumber();
+            case 6: return getStreetName();
+            case 7: return getCity();
+            case 8: return getState();
+            case 9: return getZipCode();
+            case 10: return getBirthDate();
+            default: throw new IndexOutOfBoundsException("Column " + index + " does not exist in Contact.");
         }
-        catch(Exception e)
+    }
+    
+    /**
+     * Sets the column of this Contact by index.
+     *
+     * @param   index   The index of the column to set.
+     * @param   value   The input String value of the column to set.
+     *
+     * @throws IndexOutOfBoundsException    If the specified index is not defined for this object.
+     * @throws ParseException               If there was a problem parsing a value.
+     */
+    public void setColumn(int index, String value) throws IndexOutOfBoundsException, ParseException
+    {
+        switch(index)
         {
-            throw new IllegalArgumentException("Failed to parse input", e);
+            case 0: setId(Integer.parseInt(value)); break;
+            case 1: setFirstName(value); break;
+            case 2: setLastName(value); break;
+            case 3: setEmailAddress(value); break;
+            case 4: setGender(value); break;
+            case 5: setPhoneNumber(value); break;
+            case 6: setStreetName(value); break;
+            case 7: setCity(value); break;
+            case 8: setState(value); break;
+            case 9: setZipCode(Integer.parseInt(value)); break;
+            case 10: setBirthDate(value); break;
+            default: throw new IndexOutOfBoundsException("Column " + index + " does not exist in Contact.");
         }
     }
 }
