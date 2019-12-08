@@ -28,15 +28,27 @@ public class SelectionSorter<TMappable extends Mappable> extends MappableSorter<
         // Convert mapped values to array of keys for sorting
         Integer[] sortedKeys = mappedValues.keySet().toArray(new Integer[mappedValues.size()]);
 
-        for(int current = 0; current < sortedKeys.length - 1; current++){
+        for(int current = 0; current < sortedKeys.length; current++){
 
             int indexOfMin = current;
-            for (int i = current + 1; i <= sortedKeys.length-1; i++)
-                if (sortedKeys[i] < sortedKeys[indexOfMin])
-                    indexOfMin = i;
-            int temp = sortedKeys[current];
-            sortedKeys[current] = sortedKeys[indexOfMin];
-            sortedKeys[indexOfMin] = temp;
+            for (int i = current + 1; i < sortedKeys.length - 1; i++){
+                int leftIndex = sortedKeys[i];
+                int rightIndex = sortedKeys[indexOfMin];
+                T left = mappedValues.get(leftIndex);
+                T right = mappedValues.get(rightIndex);
+                try{
+                    if (asc ? left.compareTo(right) > 0 : left.compareTo(right) < 0)
+                        indexOfMin = i;
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
+
+            }
+            int valueIndexOfMin = sortedKeys[indexOfMin];
+            int valueCurrent = sortedKeys[current];
+            sortedKeys[current] = valueIndexOfMin;
+            sortedKeys[indexOfMin] = valueCurrent;
         }
 
         // Bubble sort is simple, but not efficient. It costs O(N^2) to process.

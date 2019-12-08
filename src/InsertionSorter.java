@@ -34,11 +34,14 @@ public class InsertionSorter<TMappable extends Mappable> extends MappableSorter<
             boolean moreToSearch = true;
             while (moreToSearch && !finished)
             {
-                if (sortedKeys[current] < sortedKeys[current - 1])
+                int currentIndex = sortedKeys[current];
+                int currentSubIndex = sortedKeys[current - 1];
+                T left = mappedValues.get(currentIndex);
+                T right = mappedValues.get(currentSubIndex);
+                if (asc ? left.compareTo(right) > 0 : left.compareTo(right) < 0)
                 {
-                    int temp = sortedKeys[current];
-                    sortedKeys[current] = sortedKeys[current - 1];
-                    sortedKeys[current - 1] = temp;
+                    sortedKeys[current] = currentSubIndex;
+                    sortedKeys[current-1] = currentIndex;
                     current--;
                     moreToSearch = (current != 0);
                 }
