@@ -11,10 +11,12 @@
 //*******************************************************//
 
 import org.junit.Assert;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.Map;
+
+import static org.junit.Assert.*;
 
 /**
  * Testing for implementations of MappableSorter. Just need to make sure they work.
@@ -60,6 +62,18 @@ public class MappableSorterTest
     {
         MergeSorter<Contact> mergeSorter = new MergeSorter<Contact>(contacts);
         sortAndValidate(mergeSorter);
+    }
+    
+     @Test public void selectionSorterTest()
+    {
+        SelectionSorter<Contact> selectionSorter = new SelectionSorter<Contact>(contacts);
+        sortAndValidate(selectionSorter);
+    }
+    
+    @Test public void insertionSorterTest()
+    {
+        InsertionSorter<Contact> insertionSorter = new InsertionSorter<Contact>(contacts);
+        sortAndValidate(insertionSorter);
     }
     
     /**
