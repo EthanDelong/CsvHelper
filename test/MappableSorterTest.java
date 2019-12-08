@@ -1,3 +1,15 @@
+//*******************************************************//
+//  Ethan DeLong & Joseph Boehme                         //
+//  CIS 112                                              //
+//  Professor Wertz                                      //
+//  6 December 2019                                      //
+//                                                       //
+//  MappableSorterTest.java                              //
+//                                                       //
+//  Test class to validate our sorting methods.          //
+//                                                       //
+//*******************************************************//
+
 import org.junit.Assert;
 import static org.junit.Assert.*;
 import org.junit.Before;
