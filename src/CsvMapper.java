@@ -62,12 +62,16 @@ public class CsvMapper<T extends Mappable>
         {
             csvReader = new CsvReader(fileName, headers);
             String[] nextLine;
+            String timerKey = "map:" + fileName;
+            Performance.startTimer(timerKey);
             while((nextLine = csvReader.readNext()) != null)
             {
                 T instance = classConstructor.newInstance();
                 instance.mapValues(nextLine);
                 csvMap.put(instance.getId(), instance);
             }
+            Performance.stopTimer(timerKey);
+            System.out.println("Mapped " + csvMap.size() + " record(s), duration: " + Performance.formatDurationString(timerKey));
         }
         catch (Exception e)
         {

@@ -56,7 +56,11 @@ public abstract class MappableSorter<TMappable extends Mappable>
      */
     public <T extends Comparable<T>> void sort(int index, boolean asc)
     {
+        String sortClass = this.getClass().getName();
+        String timerKey = "sort:" + sortClass + ":" + index;
+        Performance.startTimer(timerKey);
         current = sort(current, index, asc);
+        Performance.stopTimer(timerKey);
     }
     
     /**

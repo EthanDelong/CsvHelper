@@ -76,6 +76,7 @@ public class CsvHelper
      */
     public static void main(String[] args)
     {
+    
         try
         {
             // First, let's get a valid input file and create the map
@@ -98,7 +99,6 @@ public class CsvHelper
                     contacts = null;
                 }
             }
-            System.out.println("Mapped " + contacts.size() + " record(s).");
         
             // Map the input csv
             
@@ -112,10 +112,6 @@ public class CsvHelper
             
             BubbleSorter<Contact> bubbleSorter = new BubbleSorter<Contact>(contacts);
             bubbleSorter.sort(1, false);
-            for(Contact contact : bubbleSorter.getResults().values())
-            {
-                System.out.println(contact.getFirstName());
-            }
             
             // Sort the contacts by name using merge sort algorithms
         }
