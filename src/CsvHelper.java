@@ -99,29 +99,149 @@ public class CsvHelper
                     contacts = null;
                 }
             }
-        
-            // Map the input csv
             
-            // Print out the input in the order it came
-            /*
-            for(Contact contact : contacts.values())
+            // Now let's process sorting commands!
+            System.out.println("You may now enter a sort command using the following pattern:");
+            System.out.println("sort [[b]ubble]|[i]nsert|[m]erge|[s]election] columnIndex [asc|desc]");
+            System.out.println();
+            System.out.println("Example:");
+            System.out.println("sort m 2 desc -- merge sort column with index 2 in descending order");
+            System.out.println();
+            
+            boolean sortComplete = false;
+            while(!sortComplete)
             {
-                System.out.println(contact.getId() + ": " + contact.toString());
+                String command = "";
+                try
+                {
+                    System.out.print("Please enter a command, or enter to continue: ");
+                    command = scanner.nextLine();
+                    
+                    // If this is blank, then they are done (enter to continue)
+                    if(command.isEmpty())
+                    {
+                        sortComplete = true;
+                        break;
+                    }
+                    // They entered something, begin parsing command
+                    String[] parts = command.split(" ");
+                    if(parts.length != 4)
+                    {
+                        System.out.println("Command must have 4 parts. Please see example usage.");
+                        continue;
+                    }
+                    // Validate this is a sort command
+                    String baseCommand = parts[0].trim();
+                    if(!baseCommand.equalsIgnoreCase("sort"))
+                    {
+                        System.out.println("Unrecognized comand: '" + baseCommand + "'");
+                        continue;
+                    }
+                    // Get the sorter
+                    MappableSorter<Contact> sorter = getSorter(parts[1], contacts);
+                    if(sorter == null)
+                    {
+                        System.out.println("Unrecognized sort type: " + parts[1]);
+                        continue;
+                    }
+                    // Get the column
+                    int columnIndex = -1;
+                    try
+                    {
+                        columnIndex = Integer.parseInt(parts[2].trim());
+                        contacts.entrySet().iterator().next().getValue().getColumn(columnIndex);
+                    }
+                    catch(Exception e)
+                    {
+                        System.out.println("Failed to parse column index: " + parts[2]);
+                        continue;
+                    }
+                    // Get the order (asc or desc)
+                    boolean asc;
+                    String ordString = parts[3].toLowerCase().trim();
+                    if(ordString.startsWith("a"))
+                    {
+                        asc = true;
+                    }
+                    else if(ordString.startsWith("d"))
+                    {
+                        asc = false;
+                    }
+                    else
+                    {
+                        System.out.println("Failed to parse order string: '" + parts[3] + "' only [a]sc/[d]esc accepted");
+                        continue;
+                    }
+                    try
+                    {
+                        // Sort and assign results to current variable
+                        sorter.sort(columnIndex, asc);
+                        contacts = sorter.getResults();
+                    }
+                    catch(Exception e)
+                    {
+                        System.out.println("Failed trying to run command: " + command);
+                        e.printStackTrace();
+                    }
+                }
+                catch(Exception e)
+                {
+                    System.out.println("Could not interpret command: '" + command + "'");
+                    e.printStackTrace();
+                }
             }
-            */
             
-            BubbleSorter<Contact> bubbleSorter = new BubbleSorter<Contact>(contacts);
-            bubbleSorter.sort(1, false);
-            
-            MergeSorter<Contact> mergeSorter = new MergeSorter<Contact>(contacts);
-            mergeSorter.sort(1, false);
-            
-            
-            // Sort the contacts by name using merge sort algorithms
+            // TODO: Prompt user to save results to file (specify path), and write the current "contacts" map to the file
         }
         catch(Exception e)
         {
             e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Gets the MappableSorter from the input type.
+     *
+     * @param   type    The type of sort (bubble/insert/merge/select).
+     *
+     * @return  The MappableSorter, or null if it couldn't interpret the input.
+     */
+    private static <T extends Mappable> MappableSorter<T> getSorter(String type, Map<Integer, T> input)
+    {
+        switch(type.trim().toLowerCase())
+        {
+            case "b":
+            case "bubble":
+            case "bubblesort":
+            case "bubblesorter":
+                return new BubbleSorter(input);
+                
+            case "i":
+            case "insert":
+            case "insertsort":
+            case "insertsorter":
+            case "insertion":
+            case "insertionsort":
+            case "insertionsorter":
+                return new InsertionSorter(input);
+                
+            case "m":
+            case "merge":
+            case "mergesort":
+            case "mergesorter":
+                return new MergeSorter(input);
+                
+            case "s":
+            case "select":
+            case "selectsort":
+            case "selectsorter":
+            case "selection":
+            case "selectionsort":
+            case "selectionsorter":
+                return new SelectionSorter(input);
+                
+            default:
+                return null;
         }
     }
 }
