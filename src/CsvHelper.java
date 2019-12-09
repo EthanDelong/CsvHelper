@@ -10,6 +10,10 @@
 //                                                       //
 //*******************************************************//
 
+
+
+import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -62,7 +66,7 @@ import java.util.Scanner;
  * <code>sort n [asc|desc]</code><p>
  * <code>Found 3 column(s), please enter from the following commands:</code><p>
  * <code><strong>Please enter a command:</strong> sort 1 asc</code><p>
- * 
+ *
  *    TODO: Finish javadocs
  *
  * @author Ethan DeLong
@@ -76,7 +80,7 @@ public class CsvHelper
      */
     public static void main(String[] args)
     {
-    
+
         try
         {
             // First, let's get a valid input file and create the map
@@ -99,7 +103,7 @@ public class CsvHelper
                     contacts = null;
                 }
             }
-            
+
             // Now let's process sorting commands!
             System.out.println("You may now enter a sort command using the following pattern:");
             System.out.println("sort [[b]ubble]|[i]nsert|[m]erge|[s]election] columnIndex [asc|desc]");
@@ -107,7 +111,9 @@ public class CsvHelper
             System.out.println("Example:");
             System.out.println("sort m 2 desc -- merge sort column with index 2 in descending order");
             System.out.println();
-            
+
+            MappableSorter<Contact> sorter = null;
+
             boolean sortComplete = false;
             while(!sortComplete)
             {
@@ -116,7 +122,7 @@ public class CsvHelper
                 {
                     System.out.print("Please enter a command, or enter to continue: ");
                     command = scanner.nextLine();
-                    
+
                     // If this is blank, then they are done (enter to continue)
                     if(command.isEmpty())
                     {
@@ -138,7 +144,7 @@ public class CsvHelper
                         continue;
                     }
                     // Get the sorter
-                    MappableSorter<Contact> sorter = getSorter(parts[1], contacts);
+                    sorter = getSorter(parts[1], contacts);
                     if(sorter == null)
                     {
                         System.out.println("Unrecognized sort type: " + parts[1]);
@@ -190,15 +196,23 @@ public class CsvHelper
                     e.printStackTrace();
                 }
             }
-            
+
             // TODO: Prompt user to save results to file (specify path), and write the current "contacts" map to the file
+            System.out.println("Please enter the name of the file path with file name for the output of the sorted contacts:");
+            String outputDirectory = scanner.nextLine();
+
+            FileWriter writer =new FileWriter(outputDirectory);
+            for (Map.Entry<Integer, Contact> entry : sorter.getResults().entrySet()) {
+                writer.write(entry.getKey() + ":" + entry.getValue().toString());
+            }
+            writer.close();
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Gets the MappableSorter from the input type.
      *
@@ -215,7 +229,7 @@ public class CsvHelper
             case "bubblesort":
             case "bubblesorter":
                 return new BubbleSorter(input);
-                
+
             case "i":
             case "insert":
             case "insertsort":
@@ -224,13 +238,13 @@ public class CsvHelper
             case "insertionsort":
             case "insertionsorter":
                 return new InsertionSorter(input);
-                
+
             case "m":
             case "merge":
             case "mergesort":
             case "mergesorter":
                 return new MergeSorter(input);
-                
+
             case "s":
             case "select":
             case "selectsort":
@@ -239,7 +253,7 @@ public class CsvHelper
             case "selectionsort":
             case "selectionsorter":
                 return new SelectionSorter(input);
-                
+
             default:
                 return null;
         }
