@@ -26,22 +26,9 @@ import java.util.Scanner;
  * which will request the path to a csv file, followed by the return 
  * key. The file must be in the appropriate format (comma separated 
  * values). The standard qualifying character, quote ("), is also 
- * supported with this format. The following input:
+ * supported with this format.
  * <p>
- * <code>Column A, "Column, B", Column C</code>
- * <p>
- * Would register the columns:
- * <ul>
- * <li>Column A</li>
- * <li>Column, B</li>
- * <li>Column C</li>
- * </ul>
- * <p>
- * Additionally, csv files must be a fixed width. This means that all 
- * lines must have the same number of input rows. The program assumes 
- * the first line to be the "header" row, and will not count it as 
- * actual data. This means that there must be at least 2 lines to 
- * process data.
+ * Currently, the csv file must have columns matching the Contact type.
  * <p>
  * If anything is wrong with the input file, an exception will be thrown 
  * during the CsvHelper parsing, and the message will be presented to 
@@ -60,14 +47,21 @@ import java.util.Scanner;
  * </ul>
  * <p>
  * Example Usage<p>
- * <code><strong>Please enter the contact file path, followed by the return key:</strong> C:\Path\To\File.csv</code><p>
- * <code>Mapped 1000 record(s).</code><p>
- * <code>You may now enter from one of the following commands</code><p>
- * <code>sort n [asc|desc]</code><p>
- * <code>Found 3 column(s), please enter from the following commands:</code><p>
- * <code><strong>Please enter a command:</strong> sort 1 asc</code><p>
- *
- *    TODO: Finish javadocs
+ * <code><strong>Please enter the contact file path, followed by the return key:</strong> C:\Path\To\File.csv</code><br>
+ * <code>Mapped 1000 record(s).</code><br>
+ * <code>You may now enter a sort command using the following pattern:</code><br>
+ * <code>sort [[b]ubble]|[i]nsert|[m]erge|[s]election] columnIndex [asc|desc]</code><br><br>
+ * <code>Example:</code><br>
+ * <code>sort m 2 desc -- merge sort column with index 2 in descending order</code><br><br>
+ * <code><strong>Please enter a command, or enter to continue:</strong> sort bubble 1 a</code><br>
+ * <code>Sorted 1000 row(s) using BubbleSorter, duration: 00:00:00.47</code><br>
+ * <code><strong>Please enter a command, or enter to continue:</strong> sort select 1 a</code><br>
+ * <code>Sorted 1000 row(s) using SelectionSorter, duration: 00:00:00.32</code><br>
+ * <code><strong>Please enter a command, or enter to continue:</strong> sort insert 1 a</code><br>
+ * <code>Sorted 1000 row(s) using InsertionSorter, duration: 00:00:00.0</code><br>
+ * <code><strong>Please enter a command, or enter to continue:</strong> sort merge 1 a</code><br>
+ * <code>Sorted 1000 row(s) using MergeSorter, duration: 00:00:00.1</code><br>
+ * <code><strong>Please enter a command, or enter to continue:</strong> </code><br>
  *
  * @author Ethan DeLong
  * @author Joseph Boehme

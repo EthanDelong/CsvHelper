@@ -20,6 +20,8 @@ public class BubbleSorter<TMappable extends Mappable> extends MappableSorter<TMa
 {
     /**
      * Creates a new BubbleSorter from the input Map.
+     *
+     * @param input The input Map.
      */
     public BubbleSorter(Map<Integer, TMappable> input)
     {
@@ -29,6 +31,7 @@ public class BubbleSorter<TMappable extends Mappable> extends MappableSorter<TMa
     /**
      * Sorts the Mappable object by the index column with the expected type T using BubbleSort.
      *
+     * @param   <T>     The Comparable type to sort.
      * @param   input   The Map of ids and Mappable objects.
      * @param   index   The index of the column to sort.
      * @param   asc     True to sort in ascending order, false to sort in descending order.

@@ -20,6 +20,8 @@ public class MergeSorter<TMappable extends Mappable> extends MappableSorter<TMap
 {
     /**
      * Creates a new MergeSorter from the input Map.
+     *
+     * @param input The input Map.
      */
     public MergeSorter(Map<Integer, TMappable> input)
     {
@@ -29,6 +31,7 @@ public class MergeSorter<TMappable extends Mappable> extends MappableSorter<TMap
     /**
      * Sorts the Mappable object by the index column with the expected type T using MergeSort.
      *
+     * @param   <T>     The Comparable type to sort.
      * @param   input   The Map of ids and Mappable objects.
      * @param   index   The index of the column to sort.
      * @param   asc     True to sort in ascending order, false to sort in descending order.
@@ -58,6 +61,7 @@ public class MergeSorter<TMappable extends Mappable> extends MappableSorter<TMap
     /**
      * Splits the input keys into two arrays and individually sorts and merges them together using the values in the given Map.
      *
+     * @param   <T>     The Comparable type to sort.
      * @param   values  The Map of ids and values.
      * @param   keys    The array of keys.
      * @param   asc     True to sort in ascending order, false to sort in descending order.
@@ -96,6 +100,7 @@ public class MergeSorter<TMappable extends Mappable> extends MappableSorter<TMap
     /**
      * Merges two sorted arrays into one result array, sorting the final array in the process.
      *
+     * @param   <T>     The Comparable type to sort.
      * @param   values  The Map of ids and values.
      * @param   keys    The array of keys.
      * @param   asc     True to sort in ascending order, false to sort in descending order.

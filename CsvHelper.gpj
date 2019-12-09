@@ -18,27 +18,33 @@ s#p0doc
 s#q0test
 s#w0canvas
 !19;a
-a%\011doc%s	b	c1	d0!255;g
+a%\011doc%s	b	c1	d0!317;g
 %\011src%sContact.java
 %\011src%sPerformance.java
 %\011src%sMappable.java
 %\011src%sCsvMapper.java
 %\011src%sCsvHelper.java
 %\011src%sMergeSorter.java
+%\011src%sInsertionSorter.java
 %\011src%sTimer.java
 %\011src%sMappableSorter.java
 %\011src%sBubbleSorter.java
 %\011src%sCsvReader.java
-!255;f
+%\011src%sSelectionSorter.java
+!317;f
 %\011src%sContact.java
 %\011src%sPerformance.java
 %\011src%sMappable.java
 %\011src%sCsvMapper.java
 %\011src%sCsvHelper.java
 %\011src%sMergeSorter.java
+%\011src%sInsertionSorter.java
 %\011src%sTimer.java
 %\011src%sMappableSorter.java
 %\011src%sBubbleSorter.java
 %\011src%sCsvReader.java
+%\011src%sSelectionSorter.java
 !35;l
 %\011test%sMappableSorterTest.java
+!177;t
+jgrJUnit0xr	%\011src%sMappableSorter.java	1575848933891:P%\011%utest%sMappableSorterTest.java	%\011test%sMappableSorterTest.java	1575848933891:P%\011%usrc%sMappableSorter.java	

@@ -26,6 +26,8 @@ public abstract class MappableSorter<TMappable extends Mappable>
 
     /**
      * Creates a new MappableSorter from the input Map.
+     *
+     * @param input The input Map.
      */
     public MappableSorter(Map<Integer, TMappable> input)
     {
@@ -35,6 +37,7 @@ public abstract class MappableSorter<TMappable extends Mappable>
     /**
      * Sorts the current set by the index column with the expected type T, defaulting to ascending order.
      *
+     * @param   <T>     The Comparable type to sort.
      * @param   index   The index of the column to sort.
      *
      * @throws ClassCastException           If we failed to cast the column to type T.
@@ -48,6 +51,7 @@ public abstract class MappableSorter<TMappable extends Mappable>
     /**
      * Sorts the current set by the index column with the expected type T in the specified order.
      *
+     * @param   <T>     The Comparable type to sort.
      * @param   index   The index of the column to sort.
      * @param   asc     True to sort in ascending order, false to sort in descending order.
      *
@@ -67,7 +71,7 @@ public abstract class MappableSorter<TMappable extends Mappable>
     /**
      * Returns the current result set.
      *
-     * @return  The Map<Integer, TMappable> result set.
+     * @return  The resultant Map from all the performed sorts, if any.
      */
     public Map<Integer, TMappable> getResults()
     {
@@ -77,6 +81,7 @@ public abstract class MappableSorter<TMappable extends Mappable>
     /**
      * Sorts the Mappable object by the index column with the expected type T.
      *
+     * @param   <T>     The Comparable type to sort.
      * @param   input   The Map of ids and Mappable objects.
      * @param   index   The index of the column to sort.
      * @param   asc     True to sort in ascending order, false to sort in descending order.
@@ -88,6 +93,7 @@ public abstract class MappableSorter<TMappable extends Mappable>
     /**
      * Gets the values of the current map for the specified column index as a new Map of just the key and column value.
      *
+     * @param   <T>     The Comparable type to sort.
      * @param   input   The Map of ids and Mappable objects.
      * @param   index   The index of the column to get the values for.
      *

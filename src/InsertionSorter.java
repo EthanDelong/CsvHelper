@@ -20,6 +20,8 @@ public class InsertionSorter<TMappable extends Mappable> extends MappableSorter<
 {
     /**
      * Creates a new InsertionSorter from the input Map.
+     *
+     * @param input The input Map.
      */
     public InsertionSorter(Map<Integer, TMappable> input)
     {
@@ -29,6 +31,7 @@ public class InsertionSorter<TMappable extends Mappable> extends MappableSorter<
     /**
      * Sorts the Mappable object by the index column with the expected type T using InsertionSort.
      *
+     * @param   <T>     The Comparable type to sort.
      * @param   input   The Map of ids and Mappable objects.
      * @param   index   The index of the column to sort.
      * @param   asc     True to sort in ascending order, false to sort in descending order.
