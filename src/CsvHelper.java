@@ -10,9 +10,7 @@
 //                                                       //
 //*******************************************************//
 
-
-
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.util.Map;
 import java.util.Scanner;
@@ -191,15 +189,50 @@ public class CsvHelper
                 }
             }
 
-            // TODO: Prompt user to save results to file (specify path), and write the current "contacts" map to the file
-            System.out.println("Please enter the name of the file path with file name for the output of the sorted contacts:");
-            String outputDirectory = scanner.nextLine();
-
-            FileWriter writer =new FileWriter(outputDirectory);
-            for (Map.Entry<Integer, Contact> entry : sorter.getResults().entrySet()) {
-                writer.write(entry.getKey() + ":" + entry.getValue().toString());
+            String defaultPath = new File(".").getAbsolutePath();
+            System.out.println("Relative directory: " + defaultPath);
+            boolean exit = false;
+            while(!exit)
+            {
+                FileWriter writer = null;
+                try
+                {
+                    System.out.print("Sorting complete, enter a filename to save to, or press enter to quit: ");
+                    String outputFilepath = scanner.nextLine();
+                    
+                    writer = new FileWriter(outputFilepath);
+                    
+                    writer.write(contacts.values().stream().findFirst().get().getHeaderCsvLine() + "\r\n");
+                    for (Map.Entry<Integer, Contact> entry : contacts.entrySet())
+                    {
+                        writer.write(entry.getValue().toCsvLine() + "\r\n");
+                    }
+                    exit = true;
+                }
+                catch(Exception e)
+                {
+                    System.out.println("Exception encountered while trying to save file.");
+                    e.printStackTrace();
+                }
+                finally
+                {
+                    if(writer != null)
+                    {
+                        try
+                        {
+                            writer.close();
+                        }
+                        catch(Exception e)
+                        {
+                            System.out.println("Failed to close writer.");
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
-            writer.close();
+
+            
+
         }
         catch(Exception e)
         {

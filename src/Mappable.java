@@ -10,6 +10,7 @@
 //                                                       //
 //*******************************************************//
 
+import java.lang.StringBuilder;
 import java.text.ParseException;
 
 /**
@@ -17,6 +18,11 @@ import java.text.ParseException;
  */
 public abstract class Mappable
 {
+    /**
+     * The number of columns mapped from the input.
+     */
+    private int mappedColumns = 0;
+
     /**
      * Empty initializer since objects don't have to be instantiated with an input array.
      */
@@ -55,6 +61,13 @@ public abstract class Mappable
     public abstract Object getColumn(int index) throws IndexOutOfBoundsException;
     
     /**
+     * Gets the comma-delimited header line for the Mappable object.
+     *
+     * @return  The comma-delimited header row for the Mappable object, for outputing to csv files.
+     */
+    public abstract String getHeaderCsvLine();
+    
+    /**
      * Gets the column of this Mappable object by index and converts it to type T.
      *
      * @param  index    The index of the column to get.
@@ -89,10 +102,11 @@ public abstract class Mappable
      */
     public void mapValues(String[] input) throws IllegalArgumentException
     {
+        mappedColumns = input.length;
         int columnIndex = 0;
         try
         {
-            for(; columnIndex < input.length; columnIndex++)
+            for(; columnIndex < mappedColumns; columnIndex++)
             {
                 setColumn(columnIndex, input[columnIndex]);
             }
@@ -101,5 +115,22 @@ public abstract class Mappable
         {
             throw new IllegalArgumentException("Failed to parse value: '" + input[columnIndex] + "' index " + columnIndex, e);
         }
+    }
+    
+    /**
+     * Gets the Mappable object as a comma-delimited String of values.
+     *
+     * @return  The Mappable object as a comma-delimited String of values.
+     *
+     * @throws IndexOutOfBoundsException    If there was a problem getting the mapped index values.
+     */
+    public String toCsvLine() throws IndexOutOfBoundsException
+    {
+        String[] columns = new String[mappedColumns];
+        for(int i = 0; i < mappedColumns; i++)
+        {
+            columns[i] = getColumn(i).toString();
+        }
+        return "\"" + String.join("\",\"", columns) + "\"";
     }
 }

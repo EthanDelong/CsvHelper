@@ -355,6 +355,16 @@ public class Contact extends Mappable
     }
     
     /**
+     * Gets the comma-delimited header line for the Mappable object.
+     *
+     * @return  The comma-delimited header row for the Mappable object, for outputing to csv files.
+     */
+    public String getHeaderCsvLine() 
+    {
+        return "seq,first,last,email,gender,phone,street,city,state,zip,birthday";
+    }
+    
+    /**
      * Gets the column of this Contact by index.
      *
      * @param  index    The index of the column to get.
